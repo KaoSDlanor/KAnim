@@ -12,7 +12,7 @@ export class AnimationInstance {
       this.easingFunc = EasingFunctions[easing];
     } else {
       throw Object.assign(new Error('Invalid easing'),{easing});
-    }
+    };
   };
 
   isDone(unixTimestamp: unixTimestamp): boolean {

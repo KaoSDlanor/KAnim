@@ -17,7 +17,7 @@ export class ElementGroup {
       const newElementItem = new ElementInstance(element);
       this.elementList.set(element,newElementItem);
       return newElementItem;
-    }
+    };
     return this.elementList.get(element);
   };
 

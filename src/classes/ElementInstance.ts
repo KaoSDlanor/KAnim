@@ -1,6 +1,6 @@
 import {milliseconds,unixTimestamp,element,propertyKey,propertyValue} from '../lib/types';
 import {EasingDeclaration} from '../lib/EasingFunctions';
-import AnimationGroup from './AnimationGroup';
+import {AnimationGroup} from './AnimationGroup';
 
 export class ElementInstance {
   constructor(public element: element,readonly propertyList: Map<propertyKey,AnimationGroup> = new Map()) { };
@@ -11,7 +11,7 @@ export class ElementInstance {
       this.element[propertyKey] = propertyItem.computeValueMS(unixTimestamp);
       if (propertyItem.isDone(unixTimestamp)) {
         this.propertyList.delete(propertyKey);
-      }
+      };
     };
   };
 
@@ -28,7 +28,7 @@ export class ElementInstance {
       const newProperty = new AnimationGroup(startValue);
       this.propertyList.set(property,newProperty);
       return newProperty;
-    }
+    };
     return this.propertyList.get(property);
   };
 
