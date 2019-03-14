@@ -2,7 +2,7 @@ import {milliseconds,unixTimestamp,propertyValue} from '../lib/types';
 import {EasingDeclaration} from '../lib/EasingFunctions';
 import AnimationInstance from './AnimationInstance';
 
-export class PropertyInstance {
+export class AnimationGroup {
   constructor(public currentValue: propertyValue,readonly animationList: Set<AnimationInstance> = new Set()) { };
 
   get targetValue(): propertyValue {
@@ -46,4 +46,4 @@ export class PropertyInstance {
   };
 };
 
-export default PropertyInstance;
+export default AnimationGroup;
