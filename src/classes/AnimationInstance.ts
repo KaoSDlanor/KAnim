@@ -1,11 +1,11 @@
 import {milliseconds,unixTimestamp,percentage,propertyValue} from '../lib/types';
-import EasingFunctions,{EasingDeclaration} from '../lib/EasingFunctions';
+import EasingFunctions,{EasingDeclaration,EasingFunction} from '../lib/EasingFunctions';
 
 export class AnimationInstance {
   readonly startTime  : unixTimestamp = +new Date();
   readonly easingFunc : Function;
 
-  constructor(readonly duration: milliseconds,readonly offset: propertyValue,easing: Function | EasingDeclaration) {
+  constructor(readonly duration: milliseconds,readonly offset: propertyValue,easing: EasingFunction | EasingDeclaration) {
     if (easing instanceof Function) {
       this.easingFunc = easing;
     } else if (EasingFunctions[easing] instanceof Function) {

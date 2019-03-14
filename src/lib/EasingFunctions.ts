@@ -1,49 +1,55 @@
+import {percentage} from './types';
+
 export type EasingDeclaration = "linear"
   | "easeInQuad" | "easeOutQuad" | "easeInOutQuad"
   | "easeInCubic" | "easeOutCubic" | "easeInOutCubic"
   | "easeInQuart" | "easeOutQuart" | "easeInOutQuart"
   | "easeInQuint" | "easeOutQuint" | "easeInOutQuint";
 
+export type EasingFunction = (t: percentage) => percentage;
+
+export type Easing = EasingFunction | EasingDeclaration;
+
 const EasingFunctions = {
 
   // no easing, no acceleration
-  linear: (t: number): number => t,
+  linear: (t: percentage): percentage => t,
 
   // accelerating from zero velocity
-  easeInQuad: (t: number): number => t*t,
+  easeInQuad: (t: percentage): percentage => t*t,
 
   // decelerating to zero velocity
-  easeOutQuad: (t: number): number => t*(2-t),
+  easeOutQuad: (t: percentage): percentage => t*(2-t),
 
   // acceleration until halfway, then deceleration
-  easeInOutQuad: (t: number): number => t<.5 ? 2*t*t : -1+(4-2*t)*t,
+  easeInOutQuad: (t: percentage): percentage => t<.5 ? 2*t*t : -1+(4-2*t)*t,
 
   // accelerating from zero velocity 
-  easeInCubic: (t: number): number => t*t*t,
+  easeInCubic: (t: percentage): percentage => t*t*t,
 
   // decelerating to zero velocity 
-  easeOutCubic: (t: number): number => (--t)*t*t+1,
+  easeOutCubic: (t: percentage): percentage => (--t)*t*t+1,
 
   // acceleration until halfway, then deceleration 
-  easeInOutCubic: (t: number): number => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
+  easeInOutCubic: (t: percentage): percentage => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
 
   // accelerating from zero velocity 
-  easeInQuart: (t: number): number => t*t*t*t,
+  easeInQuart: (t: percentage): percentage => t*t*t*t,
 
   // decelerating to zero velocity 
-  easeOutQuart: (t: number): number => 1-(--t)*t*t*t,
+  easeOutQuart: (t: percentage): percentage => 1-(--t)*t*t*t,
   
   // acceleration until halfway, then deceleration
-  easeInOutQuart: (t: number): number => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
+  easeInOutQuart: (t: percentage): percentage => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
 
   // accelerating from zero velocity
-  easeInQuint: (t: number): number => t*t*t*t*t,
+  easeInQuint: (t: percentage): percentage => t*t*t*t*t,
 
   // decelerating to zero velocity
-  easeOutQuint: (t: number): number => 1+(--t)*t*t*t*t,
+  easeOutQuint: (t: percentage): percentage => 1+(--t)*t*t*t*t,
 
   // acceleration until halfway, then deceleration 
-  easeInOutQuint: (t: number): number => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t,
+  easeInOutQuint: (t: percentage): percentage => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t,
 
 };
 
