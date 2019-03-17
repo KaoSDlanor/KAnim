@@ -1,5 +1,4 @@
-import {milliseconds,unixTimestamp,element,propertyKey,propertyValue} from '../lib/types';
-import {EasingDeclaration} from '../lib/EasingFunctions';
+import {unixTimestamp,element,propertyKey,propertyValue,animationOptions} from '../lib/types';
 import {ElementInstance} from './ElementInstance';
 import {CSSElementInstance} from './CSSElementInstance';
 import {FrameLoop} from '../lib/FrameLoop';
@@ -52,24 +51,14 @@ export class ElementGroup {
     return this.CSSElementList.get(element);
   };
 
-  animateCssTo(element: element,property: propertyKey,duration: milliseconds,to: propertyValue,easing: EasingDeclaration): void {
+  animateCSS(animationOptions: animationOptions): void {
     if (!this.FrameLoop.status) this.FrameLoop.start();
-    return this.ensureCSSElement(element).animateTo(property,duration,to,easing);
+    return this.ensureCSSElement(animationOptions.element).animate(animationOptions);
   };
 
-  animateCssBy(element: element,property: propertyKey,duration: milliseconds,to: propertyValue,easing: EasingDeclaration): void {
+  animate(animationOptions: animationOptions): void {
     if (!this.FrameLoop.status) this.FrameLoop.start();
-    return this.ensureCSSElement(element).animateBy(property,duration,to,easing);
-  };
-
-  animateTo(element: element,property: propertyKey,duration: milliseconds,to: propertyValue,easing: EasingDeclaration): void {
-    if (!this.FrameLoop.status) this.FrameLoop.start();
-    return this.ensureElement(element).animateTo(property,duration,to,easing);
-  };
-
-  animateBy(element: element,property: propertyKey,duration: milliseconds,offset: propertyValue,easing: EasingDeclaration): void {
-    if (!this.FrameLoop.status) this.FrameLoop.start();
-    return this.ensureElement(element).animateBy(property,duration,offset,easing);
+    return this.ensureElement(animationOptions.element).animate(animationOptions);
   };
 };
 

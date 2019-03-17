@@ -1,17 +1,24 @@
-import {milliseconds,unixTimestamp,percentage,propertyValue} from '../lib/types';
-import EasingFunctions,{EasingDeclaration,EasingFunction} from '../lib/EasingFunctions';
+import {milliseconds,unixTimestamp,percentage,propertyValue,relativeAnimationOptions} from '../lib/types';
+import EasingFunctions,{EasingFunction} from '../lib/EasingFunctions';
 
 export class AnimationInstance {
   readonly startTime  : unixTimestamp = +new Date();
-  readonly easingFunc : Function;
+  readonly duration   : milliseconds;
+  readonly offset     : propertyValue;
+  readonly easingFunc : EasingFunction;
 
-  constructor(readonly duration: milliseconds,readonly offset: propertyValue,easing: EasingFunction | EasingDeclaration) {
-    if (easing instanceof Function) {
-      this.easingFunc = easing;
-    } else if (EasingFunctions[easing] instanceof Function) {
-      this.easingFunc = EasingFunctions[easing];
+  constructor(animationOptions: relativeAnimationOptions) {
+    if ('startTime' in animationOptions) this.startTime = animationOptions.startTime;
+
+    this.duration = animationOptions.duration;
+    this.offset = animationOptions.offset;
+
+    if (animationOptions.easing instanceof Function) {
+      this.easingFunc = animationOptions.easing;
+    } else if (EasingFunctions[animationOptions.easing] instanceof Function) {
+      this.easingFunc = EasingFunctions[animationOptions.easing];
     } else {
-      throw Object.assign(new Error('Invalid easing'),{easing});
+      throw Object.assign(new Error('Invalid easing'),{easing : animationOptions.easing});
     };
   };
 
@@ -21,7 +28,7 @@ export class AnimationInstance {
 
   computePct(unixTimestamp: unixTimestamp): percentage {
     const difference: milliseconds = unixTimestamp - this.startTime;
-    return Math.max(1,difference / this.duration);
+    return Math.min(0,Math.max(1,difference / this.duration));
   };
 
   computeValueMS(unixTimestamp: unixTimestamp): propertyValue {

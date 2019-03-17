@@ -1,5 +1,4 @@
-import {milliseconds,unixTimestamp,element,propertyKey,propertyValue} from '../lib/types';
-import {EasingDeclaration} from '../lib/EasingFunctions';
+import {unixTimestamp,element,propertyKey,propertyValue,animationOptions} from '../lib/types';
 import {AnimationGroup} from './AnimationGroup';
 
 export class ElementInstance {
@@ -32,12 +31,8 @@ export class ElementInstance {
     return this.propertyList.get(property);
   };
 
-  animateTo(property: propertyKey,duration: milliseconds,to: propertyValue,easing: EasingDeclaration): void {
-    return this.ensureProperty(property).animateTo(duration,to,easing);
-  };
-
-  animateBy(property: propertyKey,duration: milliseconds,offset: propertyValue,easing: EasingDeclaration): void {
-    return this.ensureProperty(property).animateBy(duration,offset,easing);
+  animate(animationOptions: animationOptions): void {
+    return this.ensureProperty(animationOptions.property).animate(animationOptions);
   };
 };
 

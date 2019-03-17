@@ -1,5 +1,4 @@
-import {milliseconds,unixTimestamp,propertyValue} from '../lib/types';
-import {EasingDeclaration} from '../lib/EasingFunctions';
+import {unixTimestamp,propertyValue,animationOptions,relativeAnimationOptions} from '../lib/types';
 import AnimationInstance from './AnimationInstance';
 
 export class AnimationGroup {
@@ -20,6 +19,11 @@ export class AnimationGroup {
     return true;
   };
 
+  clearAnimations(currentValue: propertyValue): void {
+    this.animationList.clear();
+    this.currentValue = currentValue;
+  };
+
   cleanAnimations(unixTimestamp: unixTimestamp): void {
     for (const animationItem of this.animationList) {
       if (animationItem.isDone(unixTimestamp)) {
@@ -37,12 +41,10 @@ export class AnimationGroup {
     return computedValue;
   };
 
-  animateTo(duration: milliseconds,to: propertyValue,easing: EasingDeclaration): void {
-    return this.animateBy(duration,to - this.targetValue,easing);
-  };
-
-  animateBy(duration: milliseconds,offset: propertyValue,easing: EasingDeclaration): void {
-    this.animationList.add(new AnimationInstance(duration,offset,easing));
+  animate(animationOptions: animationOptions): void {
+    if ('from' in animationOptions) this.cleanAnimations(animationOptions.from);
+    if ('to' in animationOptions) animationOptions.offset = animationOptions.to - this.targetValue;
+    this.animationList.add(new AnimationInstance(<relativeAnimationOptions>animationOptions));
   };
 };
 
