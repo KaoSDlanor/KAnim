@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "Daniel Olivier (KaoSDlanor@gmail.com)",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^3.3.3333"
