@@ -1,6 +1,6 @@
-import {unixTimestamp,element,propertyKey,propertyValue,animationOptions} from '../lib/types';
-import {ElementInstance} from './ElementInstance';
-import {CSSElementInstance} from './CSSElementInstance';
+import {unixTimestamp,element,CSSAnimationOptions,elementAnimationOptions} from '../lib/types';
+import {ElementInstance} from './element/Instance';
+import {CSSElementInstance} from './css/Instance';
 import {FrameLoop} from '../lib/FrameLoop';
 
 export class ElementGroup {
@@ -30,6 +30,9 @@ export class ElementGroup {
     for (const [,elementItem] of this.elementList) {
       if (!elementItem.isDone(unixTimestamp)) return false;
     };
+    for (const [,CSSElementItem] of this.CSSElementList) {
+      if (!CSSElementItem.isDone(unixTimestamp)) return false;
+    };
     return true;
   };
 
@@ -51,14 +54,14 @@ export class ElementGroup {
     return this.CSSElementList.get(element);
   };
 
-  animateCSS(animationOptions: animationOptions): void {
+  animateCSS(CSSAnimationOptions: CSSAnimationOptions): void {
     if (!this.FrameLoop.status) this.FrameLoop.start();
-    return this.ensureCSSElement(animationOptions.element).animate(animationOptions);
+    return this.ensureCSSElement(CSSAnimationOptions.element).animate(CSSAnimationOptions);
   };
 
-  animate(animationOptions: animationOptions): void {
+  animate(elementAnimationOptions: elementAnimationOptions): void {
     if (!this.FrameLoop.status) this.FrameLoop.start();
-    return this.ensureElement(animationOptions.element).animate(animationOptions);
+    return this.ensureElement(elementAnimationOptions.element).animate(elementAnimationOptions);
   };
 };
 

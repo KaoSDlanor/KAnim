@@ -1,8 +1,9 @@
-import {unixTimestamp,propertyKey,propertyValue} from '../lib/types';
-import {ElementInstance} from './ElementInstance';
+import {unixTimestamp,element,propertyKey,CSSPropertyValue,CSSAnimationOptions} from '../../lib/types';
 import {AnimationGroup} from './AnimationGroup';
 
-export class CSSElementInstance extends ElementInstance {
+export class CSSElementInstance {
+  constructor(public element: element,readonly propertyList: Map<propertyKey,AnimationGroup> = new Map()) { };
+
   execute(unixTimestamp: unixTimestamp): void {
     for (const [propertyKey,propertyItem] of this.propertyList) {
       propertyItem.cleanAnimations(unixTimestamp);
@@ -13,14 +14,25 @@ export class CSSElementInstance extends ElementInstance {
     };
   };
 
+  isDone(unixTimestamp: unixTimestamp): boolean {
+    for (const [,propertyItem] of this.propertyList) {
+      if (!propertyItem.isDone(unixTimestamp)) return false;
+    };
+    return true;
+  };
+
   ensureProperty(property: propertyKey): AnimationGroup {
     if (!this.propertyList.has(property)) {
-      const startValue: propertyValue = Number(this.element.style.getPropertyValue(property));
+      const startValue: CSSPropertyValue = String(window.getComputedStyle(this.element).getPropertyValue(property));
       const newProperty = new AnimationGroup(startValue);
       this.propertyList.set(property,newProperty);
       return newProperty;
     };
     return this.propertyList.get(property);
+  };
+
+  animate(CSSAnimationOptions: CSSAnimationOptions): void {
+    return this.ensureProperty(CSSAnimationOptions.property).animate(CSSAnimationOptions);
   };
 };
 

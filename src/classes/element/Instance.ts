@@ -1,4 +1,4 @@
-import {unixTimestamp,element,propertyKey,propertyValue,animationOptions} from '../lib/types';
+import {unixTimestamp,element,propertyKey,elementPropertyValue,elementAnimationOptions} from '../../lib/types';
 import {AnimationGroup} from './AnimationGroup';
 
 export class ElementInstance {
@@ -23,7 +23,7 @@ export class ElementInstance {
 
   ensureProperty(property: propertyKey): AnimationGroup {
     if (!this.propertyList.has(property)) {
-      const startValue: propertyValue = this.element[property];
+      const startValue: elementPropertyValue = this.element[property];
       const newProperty = new AnimationGroup(startValue);
       this.propertyList.set(property,newProperty);
       return newProperty;
@@ -31,8 +31,8 @@ export class ElementInstance {
     return this.propertyList.get(property);
   };
 
-  animate(animationOptions: animationOptions): void {
-    return this.ensureProperty(animationOptions.property).animate(animationOptions);
+  animate(elementAnimationOptions: elementAnimationOptions): void {
+    return this.ensureProperty(elementAnimationOptions.property).animate(elementAnimationOptions);
   };
 };
 

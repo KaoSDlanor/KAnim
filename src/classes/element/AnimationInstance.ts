@@ -1,13 +1,13 @@
-import {milliseconds,unixTimestamp,percentage,propertyValue,relativeAnimationOptions} from '../lib/types';
-import EasingFunctions,{EasingFunction} from '../lib/EasingFunctions';
+import {milliseconds,unixTimestamp,percentage,elementPropertyValue,relativeElementAnimationOptions} from '../../lib/types';
+import EasingFunctions,{EasingFunction} from '../../lib/EasingFunctions';
 
 export class AnimationInstance {
   readonly startTime  : unixTimestamp = +new Date();
   readonly duration   : milliseconds;
-  readonly offset     : propertyValue;
+  readonly offset     : elementPropertyValue;
   readonly easingFunc : EasingFunction;
 
-  constructor(animationOptions: relativeAnimationOptions) {
+  constructor(animationOptions: relativeElementAnimationOptions) {
     if ('startTime' in animationOptions) this.startTime = animationOptions.startTime;
 
     this.duration = animationOptions.duration;
@@ -28,14 +28,14 @@ export class AnimationInstance {
 
   computePct(unixTimestamp: unixTimestamp): percentage {
     const difference: milliseconds = unixTimestamp - this.startTime;
-    return Math.min(0,Math.max(1,difference / this.duration));
+    return Math.min(1,Math.max(0,difference / this.duration));
   };
 
-  computeValueMS(unixTimestamp: unixTimestamp): propertyValue {
+  computeValueMS(unixTimestamp: unixTimestamp): elementPropertyValue {
     return this.computeValuePct(this.computePct(unixTimestamp));
   };
 
-  computeValuePct(pct: percentage): propertyValue {
+  computeValuePct(pct: percentage): elementPropertyValue {
     return pct * this.offset;
   };
 };

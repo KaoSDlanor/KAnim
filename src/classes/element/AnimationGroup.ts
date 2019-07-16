@@ -1,11 +1,11 @@
-import {unixTimestamp,propertyValue,animationOptions,relativeAnimationOptions} from '../lib/types';
+import {unixTimestamp,percentage,elementPropertyValue,elementAnimationOptions,relativeElementAnimationOptions} from '../../lib/types';
 import AnimationInstance from './AnimationInstance';
 
 export class AnimationGroup {
-  constructor(public currentValue: propertyValue,readonly animationList: Set<AnimationInstance> = new Set()) { };
+  constructor(public currentValue: elementPropertyValue,readonly animationList: Set<AnimationInstance> = new Set()) { };
 
-  get targetValue(): propertyValue {
-    let targetValue: propertyValue = this.currentValue;
+  get targetValue(): elementPropertyValue {
+    let targetValue: elementPropertyValue = this.currentValue;
     for (const animationItem of this.animationList) {
       targetValue += animationItem.computeValuePct(1);
     };
@@ -19,7 +19,7 @@ export class AnimationGroup {
     return true;
   };
 
-  clearAnimations(currentValue: propertyValue): void {
+  clearAnimations(currentValue: elementPropertyValue): void {
     this.animationList.clear();
     this.currentValue = currentValue;
   };
@@ -33,18 +33,18 @@ export class AnimationGroup {
     };
   };
 
-  computeValueMS(unixTimestamp: unixTimestamp): propertyValue {
-    let computedValue: propertyValue = this.currentValue;
+  computeValueMS(unixTimestamp: unixTimestamp): elementPropertyValue {
+    let computedValue: elementPropertyValue = this.currentValue;
     for (const animationItem of this.animationList) {
       computedValue += animationItem.computeValueMS(unixTimestamp);
     };
     return computedValue;
   };
 
-  animate(animationOptions: animationOptions): void {
-    if ('from' in animationOptions) this.cleanAnimations(animationOptions.from);
-    if ('to' in animationOptions) animationOptions.offset = animationOptions.to - this.targetValue;
-    this.animationList.add(new AnimationInstance(<relativeAnimationOptions>animationOptions));
+  animate(elementAnimationOptions: elementAnimationOptions): void {
+    if ('from' in elementAnimationOptions) this.cleanAnimations(elementAnimationOptions.from);
+    if ('to' in elementAnimationOptions) elementAnimationOptions.offset = elementAnimationOptions.to - this.targetValue;
+    this.animationList.add(new AnimationInstance(<relativeElementAnimationOptions>elementAnimationOptions));
   };
 };
 
