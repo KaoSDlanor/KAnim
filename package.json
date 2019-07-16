@@ -1,16 +1,23 @@
 {
-  "name": "kanim",
-  "version": "1.0.0",
+  "name": "@kaosdlanor/kanim",
+  "version": "0.0.0",
   "description": "Illumi-Animation!",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "gulp build"
   },
   "keywords": [],
   "author": "Daniel Olivier (KaoSDlanor@gmail.com)",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.3.3333"
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
+    "gulp-watch": "^5.0.1",
+    "gulp-webpack": "^1.5.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.35.3"
   }
 }

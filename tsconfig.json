@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-      "outDir": "./dist",
-      "target": "es6"
-  },
-  "include": [
-      "./src/**/*"
-  ]
+    "declaration": true,
+    "target": "es6",
+    "module": "es2015",
+    "declarationDir": ""
+  }
 }
