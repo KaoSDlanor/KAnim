@@ -36,7 +36,7 @@ export class AnimationInstance {
   };
 
   computeValuePct(pct: percentage): elementPropertyValue {
-    return pct * this.offset;
+    return this.easingFunc(pct) * this.offset;
   };
 };
 

@@ -43,7 +43,7 @@ export class AnimationGroup {
   computeValueMS(unixTimestamp: unixTimestamp): CSSPropertyValue {
     let computedValue: CSSPropertyValue = this.currentValue;
     for (const animationItem of this.animationList) {
-      const percentage = animationItem.computePct(unixTimestamp);
+      const percentage = animationItem.easingFunc(animationItem.computePct(unixTimestamp));
       if (animationItem.offset) {
         computedValue += ` + ${animationItem.offset} * ${percentage}`;
       } else if (animationItem.to) {
