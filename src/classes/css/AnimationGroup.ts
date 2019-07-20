@@ -45,9 +45,9 @@ export class AnimationGroup {
     for (const animationItem of this.animationList) {
       const percentage = animationItem.easingFunc(animationItem.computePct(unixTimestamp));
       if (animationItem.offset) {
-        computedValue += ` + ${animationItem.offset} * ${percentage}`;
+        computedValue += ` + (${animationItem.offset}) * ${percentage}`;
       } else if (animationItem.to) {
-        computedValue = `(${computedValue}) * ${1-percentage} + ${animationItem.to} * ${percentage}`
+        computedValue = `(${computedValue}) * ${1-percentage} + (${animationItem.to}) * ${percentage}`
       }
     };
     return `calc(${computedValue})`;
