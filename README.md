@@ -9,21 +9,21 @@ It includes typescript definition files for your convenience.
 Install with npm:
 
 ```bash
-npm i KAnim
+npm i @kaosdlanor/kanim
 ```
 
 Include the script file in your webpage and access the global KAnim or use standard imports
 ```javascript
-import {KAnim} from 'KAnim';
+import {KAnim} from '@kaosdlanor/kanim';
 ```
 ```javascript
-const {KAnim} = require('KAnim');
+const {KAnim} = require('@kaosdlanor/kanim');
 ```
 
 ## Usage
 
 ```javascript
-import {KAnim} from 'KAnim';
+import {KAnim} from '@kaosdlanor/kanim';
 
 const element = document.getElementById('myAnimatable');
 element.style.setProperty('--tx','0px');
