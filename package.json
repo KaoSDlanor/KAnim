@@ -15,7 +15,6 @@
     "gulp": "^4.0.2",
     "gulp-cli": "^2.2.0",
     "gulp-watch": "^5.0.1",
-    "gulp-webpack": "^1.5.0",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "webpack": "^4.35.3"

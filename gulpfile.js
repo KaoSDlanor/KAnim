@@ -1,15 +1,15 @@
 const del = require('del');
 const gulp = require('gulp');
-const webpack = require('gulp-webpack')(require('./webpack.config.js'),require('webpack'));
+const webpack = require('webpack')(require('./webpack.config.js'));
 
 gulp.task('clean',() => {
   return del('dist/**',{force : true});
 });
 
-gulp.task('transpile',() => {
-  return gulp.src('src/index.ts')
-    .pipe(webpack)
-    .pipe(gulp.dest('dist/'));
+gulp.task('transpile',(cb) => {
+  webpack.run((err,stats) => {
+    cb(stats.compilation.errors[0],stats);
+  });
 });
 
 gulp.task('build',gulp.series('clean',gulp.series('transpile')));

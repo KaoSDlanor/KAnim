@@ -12,6 +12,7 @@ module.exports = {
   resolve : {
     extensions : ['.tsx','.ts','.js'],
   },
+  entry: './src/index.ts',
   output : {
     filename : 'index.js',
     libraryTarget : 'umd',
