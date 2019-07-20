@@ -9,6 +9,7 @@
   },
   "keywords": [],
   "author": "Daniel Olivier (KaoSDlanor@gmail.com)",
+  "repository": "https://github.com/KaoSDlanor/KAnim",
   "license": "ISC",
   "devDependencies": {
     "del": "^5.0.0",
