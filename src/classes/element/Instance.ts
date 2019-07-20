@@ -21,9 +21,15 @@ export class ElementInstance {
     return true;
   };
 
-  ensureProperty(property: propertyKey): AnimationGroup {
+  removeProperty({property}: elementAnimationOptions): void {
+    if (this.propertyList.has(property)) {
+      this.propertyList.delete(property);
+    }
+  };
+
+  ensureProperty({property,from}: elementAnimationOptions): AnimationGroup {
     if (!this.propertyList.has(property)) {
-      const startValue: elementPropertyValue = this.element[property];
+      const startValue: elementPropertyValue = Number(from || this.element[property]);
       const newProperty = new AnimationGroup(startValue);
       this.propertyList.set(property,newProperty);
       return newProperty;
@@ -32,7 +38,8 @@ export class ElementInstance {
   };
 
   animate(elementAnimationOptions: elementAnimationOptions): void {
-    return this.ensureProperty(elementAnimationOptions.property).animate(elementAnimationOptions);
+    if (elementAnimationOptions.from) this.removeProperty(elementAnimationOptions);
+    return this.ensureProperty(elementAnimationOptions).animate(elementAnimationOptions);
   };
 };
 

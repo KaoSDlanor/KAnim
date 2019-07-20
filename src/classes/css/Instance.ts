@@ -21,9 +21,15 @@ export class CSSElementInstance {
     return true;
   };
 
-  ensureProperty(property: propertyKey): AnimationGroup {
+  removeProperty({property}: CSSAnimationOptions): void {
+    if (this.propertyList.has(property)) {
+      this.propertyList.delete(property);
+    }
+  };
+
+  ensureProperty({property,from}: CSSAnimationOptions): AnimationGroup {
     if (!this.propertyList.has(property)) {
-      const startValue: CSSPropertyValue = String(window.getComputedStyle(this.element).getPropertyValue(property));
+      const startValue: CSSPropertyValue = String(from || window.getComputedStyle(this.element).getPropertyValue(property));
       const newProperty = new AnimationGroup(startValue);
       this.propertyList.set(property,newProperty);
       return newProperty;
@@ -32,7 +38,8 @@ export class CSSElementInstance {
   };
 
   animate(CSSAnimationOptions: CSSAnimationOptions): void {
-    return this.ensureProperty(CSSAnimationOptions.property).animate(CSSAnimationOptions);
+    if (CSSAnimationOptions.from) this.removeProperty(CSSAnimationOptions);
+    return this.ensureProperty(CSSAnimationOptions).animate(CSSAnimationOptions);
   };
 };
 
