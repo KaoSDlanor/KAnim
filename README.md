@@ -27,7 +27,7 @@ The 2 primary methods are ```KAnim.animate(elementAnimationOptions)``` and ```KA
 ```animate``` is used to change a property of any object over time. It only supports numbers
 ```animateCSS``` is used to change style properties of an HTMLElement. It can animate between any valid CSS ```calc()``` expressions
 
-Both ```elementAnimationOptions``` and ```CSSAnimationOptions``` are documented in [types.d.ts](./dist/lib/types.d.ts)
+Both ```elementAnimationOptions``` and ```CSSAnimationOptions``` are documented in [types.d.ts](./src/lib/types.ts)
 
 Basic Example:
 ```javascript
