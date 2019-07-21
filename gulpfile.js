@@ -8,7 +8,11 @@ gulp.task('clean',() => {
 
 gulp.task('transpile',(cb) => {
   webpack.run((err,stats) => {
-    cb(stats.compilation.errors[0],stats);
+    if (stats.compilation.errors.length) {
+      stats.compilation.errors.forEach((err) => console.error(err));
+      return cb(new Error('Webpack Failed'));
+    }
+    return cb(null,stats);
   });
 });
 
