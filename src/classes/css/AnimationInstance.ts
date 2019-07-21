@@ -1,4 +1,4 @@
-import {milliseconds,unixTimestamp,percentage,CSSPropertyValue,relativeCSSAnimationOptions} from '../../lib/types';
+import {milliseconds,unixTimestamp,percentage,CSSPropertyValue,CSSAnimationOptions, relativeCSSAnimationOptions, absoluteCSSAnimationOptions} from '../../lib/types';
 import EasingFunctions,{EasingFunction} from '../../lib/EasingFunctions';
 
 export class AnimationInstance {
@@ -8,19 +8,23 @@ export class AnimationInstance {
   readonly to?        : CSSPropertyValue;
   readonly easingFunc : EasingFunction;
 
-  constructor(animationOptions: relativeCSSAnimationOptions) {
-    if ('startTime' in animationOptions) this.startTime = animationOptions.startTime;
+  constructor(CSSAnimationOptions: CSSAnimationOptions) {
+    if ('startTime' in CSSAnimationOptions) this.startTime = CSSAnimationOptions.startTime;
 
-    this.duration = animationOptions.duration;
-    this.offset = animationOptions.offset;
-    this.to = animationOptions.to;
-
-    if (animationOptions.easing instanceof Function) {
-      this.easingFunc = animationOptions.easing;
-    } else if (EasingFunctions[animationOptions.easing] instanceof Function) {
-      this.easingFunc = EasingFunctions[animationOptions.easing];
+    this.duration = CSSAnimationOptions.duration;
+    
+    if ((<absoluteCSSAnimationOptions>CSSAnimationOptions).to) {
+      this.to = (<absoluteCSSAnimationOptions>CSSAnimationOptions).to;
     } else {
-      throw Object.assign(new Error('Invalid easing'),{easing : animationOptions.easing});
+      this.offset = (<relativeCSSAnimationOptions>CSSAnimationOptions).offset;
+    }
+
+    if (CSSAnimationOptions.easing instanceof Function) {
+      this.easingFunc = CSSAnimationOptions.easing;
+    } else if (EasingFunctions[CSSAnimationOptions.easing] instanceof Function) {
+      this.easingFunc = EasingFunctions[CSSAnimationOptions.easing];
+    } else {
+      throw Object.assign(new Error('Invalid easing'),{easing : CSSAnimationOptions.easing});
     };
   };
 

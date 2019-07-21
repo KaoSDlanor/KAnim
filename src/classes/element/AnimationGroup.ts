@@ -1,4 +1,4 @@
-import {unixTimestamp,percentage,elementPropertyValue,elementAnimationOptions,relativeElementAnimationOptions} from '../../lib/types';
+import {unixTimestamp,elementPropertyValue,elementAnimationOptions,relativeElementAnimationOptions, absoluteElementAnimationOptions} from '../../lib/types';
 import AnimationInstance from './AnimationInstance';
 
 export class AnimationGroup {
@@ -41,10 +41,22 @@ export class AnimationGroup {
     return computedValue;
   };
 
+  convertAnimationType(elementAnimationOptions: absoluteElementAnimationOptions): relativeElementAnimationOptions {
+    const output = <relativeElementAnimationOptions>Object.assign(
+      {
+        offset : elementAnimationOptions.to - this.targetValue,
+        to : undefined,
+      },
+      elementAnimationOptions
+    );
+
+    return output;
+  };
+
   animate(elementAnimationOptions: elementAnimationOptions): void {
     if ('from' in elementAnimationOptions) this.cleanAnimations(elementAnimationOptions.from);
-    if ('to' in elementAnimationOptions) elementAnimationOptions.offset = elementAnimationOptions.to - this.targetValue;
-    this.animationList.add(new AnimationInstance(<relativeElementAnimationOptions>elementAnimationOptions));
+    if ('to' in elementAnimationOptions) elementAnimationOptions = this.convertAnimationType(elementAnimationOptions);
+    this.animationList.add(new AnimationInstance(elementAnimationOptions));
   };
 };
 

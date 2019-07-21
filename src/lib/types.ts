@@ -9,15 +9,16 @@ export type propertyKey = string;
 export type elementPropertyValue = number;
 export type CSSPropertyValue = string;
 
-export interface baseElementAnimationOptions {
-  element    : element,
+export interface baseAnimationOptions {
+  element    : element | any,
   property   : propertyKey,
   startTime? : unixTimestamp,
   duration   : milliseconds,
-  offset?    : elementPropertyValue,
-  to?        : elementPropertyValue,
-  from?      : elementPropertyValue,
   easing     : EasingFunction | EasingDeclaration,
+}
+
+export interface baseElementAnimationOptions extends baseAnimationOptions {
+  from?      : elementPropertyValue,
 };
 
 export interface relativeElementAnimationOptions extends baseElementAnimationOptions {
@@ -30,15 +31,9 @@ export interface absoluteElementAnimationOptions extends baseElementAnimationOpt
 
 export type elementAnimationOptions = relativeElementAnimationOptions | absoluteElementAnimationOptions;
 
-export interface baseCSSAnimationOptions {
+export interface baseCSSAnimationOptions extends baseAnimationOptions {
   element    : element,
-  property   : propertyKey,
-  startTime? : unixTimestamp,
-  duration   : milliseconds,
-  offset?    : CSSPropertyValue,
-  to?        : CSSPropertyValue,
   from?      : CSSPropertyValue,
-  easing     : EasingFunction | EasingDeclaration,
 };
 
 export interface relativeCSSAnimationOptions extends baseCSSAnimationOptions {

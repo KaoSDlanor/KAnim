@@ -55,7 +55,7 @@ export class AnimationGroup {
 
   animate(CSSAnimationOptions: CSSAnimationOptions): void {
     if ('startTime' in CSSAnimationOptions) this.cleanAnimations(CSSAnimationOptions.startTime);
-    this.animationList.add(new AnimationInstance(<relativeCSSAnimationOptions>CSSAnimationOptions));
+    this.animationList.add(new AnimationInstance(CSSAnimationOptions));
   };
 };
 
