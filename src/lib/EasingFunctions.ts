@@ -1,3 +1,4 @@
+// See https://gist.github.com/gre/1650294
 import {percentage} from './types';
 
 export type EasingDeclaration = "linear"

@@ -96,3 +96,7 @@ const doAnim = async () => {
 doAnim();
 ```
 You should avoid using ```setTimeout``` for accurate timings in your animations as it is not perfectly accurate, I am also delaying the execution of each delay call by using promises and async/await. This conveniently illustrates the fact that you can add animations to an element with KAnim without worrying about what state the element is in currently or if your timings are perfectly accurate
+
+## Thanks
+
+ - [Gaëtan Renaudeau](https://gist.github.com/gre) for his [Simple Easing Functions](https://gist.github.com/gre/1650294)
