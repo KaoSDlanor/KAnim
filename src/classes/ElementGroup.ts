@@ -9,19 +9,15 @@ export class ElementGroup {
   constructor(readonly elementList: Map<element,ElementInstance> = new Map(),readonly CSSElementList: Map<element,CSSElementInstance> = new Map()) {  };
 
   execute(unixTimestamp: unixTimestamp): void {
-    for (const [elementIdentifier,elementInstance] of this.elementList) {
-      elementInstance.execute(unixTimestamp);
-      if (elementInstance.isDone(unixTimestamp)) {
-        this.elementList.delete(elementIdentifier);
-      };
+    for (const [,elementItem] of this.elementList) {
+      elementItem.execute(unixTimestamp);
     };
+    this.cleanElements(unixTimestamp);
 
-    for (const [elementIdentifier,CSSElementInstance] of this.CSSElementList) {
-      CSSElementInstance.execute(unixTimestamp);
-      if (CSSElementInstance.isDone(unixTimestamp)) {
-        this.CSSElementList.delete(elementIdentifier);
-      };
+    for (const [,CSSElementItem] of this.CSSElementList) {
+      CSSElementItem.execute(unixTimestamp);
     };
+    this.cleanCSSElements(unixTimestamp);
 
     if (this.isDone(unixTimestamp)) this.FrameLoop.stop();
   };
@@ -36,6 +32,14 @@ export class ElementGroup {
     return true;
   };
 
+  cleanElements(unixTimestamp: unixTimestamp): void {
+    for (const [element,elementItem] of this.elementList) {
+      if (elementItem.isDone(unixTimestamp)) {
+        this.elementList.delete(element);
+      };
+    };
+  };
+
   ensureElement(element: element): ElementInstance {
     if (!this.elementList.has(element)) {
       const newElementItem = new ElementInstance(element);
@@ -43,6 +47,14 @@ export class ElementGroup {
       return newElementItem;
     };
     return this.elementList.get(element);
+  };
+
+  cleanCSSElements(unixTimestamp: unixTimestamp): void {
+    for (const [element,CSSElementItem] of this.CSSElementList) {
+      if (CSSElementItem.isDone(unixTimestamp)) {
+        this.elementList.delete(element);
+      };
+    };
   };
 
   ensureCSSElement(element: HTMLElement): CSSElementInstance {
