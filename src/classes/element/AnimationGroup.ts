@@ -53,10 +53,12 @@ export class AnimationGroup {
     return output;
   };
 
-  animate(elementAnimationOptions: elementAnimationOptions): void {
+  animate(elementAnimationOptions: elementAnimationOptions): Promise<void> {
     if ('from' in elementAnimationOptions) this.cleanAnimations(elementAnimationOptions.from);
     if ('to' in elementAnimationOptions) elementAnimationOptions = this.convertAnimationType(elementAnimationOptions);
-    this.animationList.add(new AnimationInstance(elementAnimationOptions));
+    const animation = new AnimationInstance(elementAnimationOptions);
+    this.animationList.add(animation);
+    return animation.done;
   };
 };
 

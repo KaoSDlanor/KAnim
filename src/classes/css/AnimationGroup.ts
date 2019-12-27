@@ -53,9 +53,11 @@ export class AnimationGroup {
     return `calc(${computedValue})`;
   };
 
-  animate(CSSAnimationOptions: CSSAnimationOptions): void {
+  animate(CSSAnimationOptions: CSSAnimationOptions): Promise<void> {
     if ('startTime' in CSSAnimationOptions) this.cleanAnimations(CSSAnimationOptions.startTime);
-    this.animationList.add(new AnimationInstance(CSSAnimationOptions));
+    const animation = new AnimationInstance(CSSAnimationOptions);
+    this.animationList.add(animation);
+    return animation.done;
   };
 };
 

@@ -7,6 +7,9 @@ export class AnimationInstance {
   readonly offset     : elementPropertyValue;
   readonly easingFunc : EasingFunction;
 
+  private  complete   : () => void
+  readonly done       : Promise<void>
+
   constructor(animationOptions: relativeElementAnimationOptions) {
     if ('startTime' in animationOptions) this.startTime = animationOptions.startTime;
 
@@ -20,10 +23,16 @@ export class AnimationInstance {
     } else {
       throw Object.assign(new Error('Invalid easing'),{easing : animationOptions.easing});
     };
+
+    this.done = new Promise((resolve) => {
+      this.complete = resolve;
+    });
   };
 
   isDone(unixTimestamp: unixTimestamp): boolean {
-    return unixTimestamp >= this.startTime + this.duration;
+    const isDone = unixTimestamp >= this.startTime + this.duration;
+    if (isDone) this.complete();
+    return isDone;
   };
 
   computePct(unixTimestamp: unixTimestamp): percentage {

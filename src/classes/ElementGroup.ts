@@ -54,12 +54,12 @@ export class ElementGroup {
     return this.CSSElementList.get(element);
   };
 
-  animateCSS(CSSAnimationOptions: CSSAnimationOptions): void {
+  animateCSS(CSSAnimationOptions: CSSAnimationOptions): Promise<void> {
     if (!this.FrameLoop.status) this.FrameLoop.start();
     return this.ensureCSSElement(CSSAnimationOptions.element).animate(CSSAnimationOptions);
   };
 
-  animate(elementAnimationOptions: elementAnimationOptions): void {
+  animate(elementAnimationOptions: elementAnimationOptions): Promise<void> {
     if (!this.FrameLoop.status) this.FrameLoop.start();
     return this.ensureElement(elementAnimationOptions.element).animate(elementAnimationOptions);
   };

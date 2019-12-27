@@ -37,7 +37,7 @@ export class CSSElementInstance {
     return this.propertyList.get(property);
   };
 
-  animate(CSSAnimationOptions: CSSAnimationOptions): void {
+  animate(CSSAnimationOptions: CSSAnimationOptions): Promise<void> {
     if (CSSAnimationOptions.from) this.removeProperty(CSSAnimationOptions);
     return this.ensureProperty(CSSAnimationOptions).animate(CSSAnimationOptions);
   };

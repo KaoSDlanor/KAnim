@@ -37,7 +37,7 @@ export class ElementInstance {
     return this.propertyList.get(property);
   };
 
-  animate(elementAnimationOptions: elementAnimationOptions): void {
+  animate(elementAnimationOptions: elementAnimationOptions): Promise<void> {
     if (elementAnimationOptions.from) this.removeProperty(elementAnimationOptions);
     return this.ensureProperty(elementAnimationOptions).animate(elementAnimationOptions);
   };
