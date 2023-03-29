@@ -1,6 +1,6 @@
 {
   "name": "@kaosdlanor/kanim",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Illumi-Animation!",
   "main": "dist/index.js",
   "scripts": {
