@@ -19,6 +19,8 @@ export interface baseAnimationOptions {
 
 export interface baseElementAnimationOptions extends baseAnimationOptions {
   from?      : elementPropertyValue,
+  min?       : elementPropertyValue,
+  max?       : elementPropertyValue,
 };
 
 export interface relativeElementAnimationOptions extends baseElementAnimationOptions {

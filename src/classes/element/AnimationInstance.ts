@@ -11,7 +11,7 @@ export class AnimationInstance {
   readonly done       : Promise<void>
 
   constructor(animationOptions: relativeElementAnimationOptions) {
-    if ('startTime' in animationOptions) this.startTime = animationOptions.startTime;
+    if (animationOptions.startTime != null) this.startTime = animationOptions.startTime;
 
     this.duration = animationOptions.duration;
     this.offset = animationOptions.offset;

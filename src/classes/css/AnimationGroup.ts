@@ -1,4 +1,4 @@
-import {unixTimestamp,percentage,CSSPropertyValue,CSSAnimationOptions,relativeCSSAnimationOptions} from '../../lib/types';
+import {unixTimestamp,percentage,CSSPropertyValue,CSSAnimationOptions} from '../../lib/types';
 import AnimationInstance from './AnimationInstance';
 
 export class AnimationGroup {
@@ -54,7 +54,7 @@ export class AnimationGroup {
   };
 
   animate(CSSAnimationOptions: CSSAnimationOptions): Promise<void> {
-    if ('startTime' in CSSAnimationOptions) this.cleanAnimations(CSSAnimationOptions.startTime);
+    if (CSSAnimationOptions.startTime != null) this.cleanAnimations(CSSAnimationOptions.startTime);
     const animation = new AnimationInstance(CSSAnimationOptions);
     this.animationList.add(animation);
     return animation.done;

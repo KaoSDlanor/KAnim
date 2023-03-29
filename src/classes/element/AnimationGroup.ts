@@ -54,8 +54,19 @@ export class AnimationGroup {
   };
 
   animate(elementAnimationOptions: elementAnimationOptions): Promise<void> {
-    if ('from' in elementAnimationOptions) this.cleanAnimations(elementAnimationOptions.from);
+    if (elementAnimationOptions.from != null) this.cleanAnimations(elementAnimationOptions.from);
     if ('to' in elementAnimationOptions) elementAnimationOptions = this.convertAnimationType(elementAnimationOptions);
+
+    // enforce bounds
+    if (elementAnimationOptions.max != null || elementAnimationOptions.min != null) {
+      // only compute the target value if bounds are defined. This is not free
+      const currentTarget = this.targetValue;
+      if (elementAnimationOptions.max != null && (currentTarget + elementAnimationOptions.offset) > elementAnimationOptions.max)
+        elementAnimationOptions.offset = elementAnimationOptions.max - currentTarget;
+      else if (elementAnimationOptions.min != null && (currentTarget + elementAnimationOptions.offset) < elementAnimationOptions.min)
+        elementAnimationOptions.offset = elementAnimationOptions.min - currentTarget;
+    }
+
     const animation = new AnimationInstance(elementAnimationOptions);
     this.animationList.add(animation);
     return animation.done;

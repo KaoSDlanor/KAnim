@@ -33,8 +33,8 @@ export class CSSElementInstance {
       const newProperty = new AnimationGroup(startValue);
       this.propertyList.set(property,newProperty);
       return newProperty;
-    };
-    return this.propertyList.get(property);
+    }
+    return this.propertyList.get(property)!;
   };
 
   animate(CSSAnimationOptions: CSSAnimationOptions): Promise<void> {

@@ -45,8 +45,8 @@ export class ElementGroup {
       const newElementItem = new ElementInstance(element);
       this.elementList.set(element,newElementItem);
       return newElementItem;
-    };
-    return this.elementList.get(element);
+    }
+    return this.elementList.get(element)!;
   };
 
   cleanCSSElements(unixTimestamp: unixTimestamp): void {
@@ -62,8 +62,8 @@ export class ElementGroup {
       const newCSSElementItem = new CSSElementInstance(element);
       this.CSSElementList.set(element,newCSSElementItem);
       return newCSSElementItem;
-    };
-    return this.CSSElementList.get(element);
+    }
+    return this.CSSElementList.get(element)!;
   };
 
   animateCSS(CSSAnimationOptions: CSSAnimationOptions): Promise<void> {

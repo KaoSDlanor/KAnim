@@ -20,8 +20,12 @@ export class FrameLoop {
   };
 
   queue(): FrameLoop {
-    window.cancelAnimationFrame(this.frameRequest);
-    if (this.running) this.frameRequest = window.requestAnimationFrame(() => this.execute());
+    if (this.frameRequest != null) window.cancelAnimationFrame(this.frameRequest);
+    if (this.running) {
+      this.frameRequest = window.requestAnimationFrame(() => this.execute());
+    } else {
+      this.frameRequest = undefined;
+    }
     return this;
   };
 

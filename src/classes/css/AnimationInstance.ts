@@ -12,10 +12,10 @@ export class AnimationInstance {
   readonly done       : Promise<void>
 
   constructor(CSSAnimationOptions: CSSAnimationOptions) {
-    if ('startTime' in CSSAnimationOptions) this.startTime = CSSAnimationOptions.startTime;
+    if (CSSAnimationOptions.startTime != null) this.startTime = CSSAnimationOptions.startTime;
 
     this.duration = CSSAnimationOptions.duration;
-    
+
     if ((<absoluteCSSAnimationOptions>CSSAnimationOptions).to) {
       this.to = (<absoluteCSSAnimationOptions>CSSAnimationOptions).to;
     } else {
